@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/edgeboyo/DrinkManagement/issues"
   },
-  "homepage": "https://github.com/edgeboyo/DrinkManagement#readme"
+  "homepage": "https://github.com/edgeboyo/DrinkManagement#readme",
+  "dependencies": {
+    "discord.js": "^13.2.0"
+  }
 }
