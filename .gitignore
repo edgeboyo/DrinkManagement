@@ -1,0 +1,8 @@
+.*
+!.gitignore
+
+node_packages/
+
+build/
+
+*.log

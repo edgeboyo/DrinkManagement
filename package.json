@@ -1,0 +1,23 @@
+{
+  "name": "drinkmanagement",
+  "version": "0.0.1",
+  "description": "A Discord bot helping you in managing your drinking game",
+  "main": "bot.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgeboyo/DrinkManagement.git"
+  },
+  "keywords": [
+    "bot"
+  ],
+  "author": "edgeboyo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edgeboyo/DrinkManagement/issues"
+  },
+  "homepage": "https://github.com/edgeboyo/DrinkManagement#readme"
+}
