@@ -17,5 +17,22 @@ client.once("ready", () => {
   console.log("Ready!");
 });
 
-// Login to Discord with your client's token
-client.login(process.env.DISCORD_TOKEN);
+login_and_run(client);
+
+async function login_and_run(client: Client) {
+  // Login to Discord with your client's token
+  await client.login(process.env.DISCORD_TOKEN);
+
+  if (client.application === null) {
+    console.log("Client app null");
+    process.exit(2);
+  }
+
+  client.application.commands
+    .create({
+      name: "test",
+      description: "A test command",
+    })
+    .then(console.log)
+    .catch(console.error);
+}
