@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import { Client, Intents } from "discord.js";
-import { build_commands } from "./commands";
+import { build_commands, handle_commands } from "./commands";
 
 dotenv.config();
 
@@ -24,6 +24,7 @@ async function login_and_run(client: Client) {
     process.exit(1);
   }
 
+  //Check if client id is provided
   if (clientId === undefined) {
     console.log("No CLIENT_ID provided in .env file");
     process.exit(4);
@@ -34,20 +35,5 @@ async function login_and_run(client: Client) {
 
   build_commands(clientId, token);
 
-  /*
-  if (client.application === null) {
-    console.log("Client app null");
-    process.exit(2);
-  }
-
-  await client.application.commands
-    .create({
-      name: "test",
-      description: "A test command",
-    })
-    .then(console.log)
-    .catch(console.error);
-
-  console.log(client.application.commands);
-  */
+  handle_commands(client);
 }

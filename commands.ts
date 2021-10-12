@@ -23,3 +23,19 @@ export function build_commands(clientId: string, token: string) {
     .then(() => console.log("Successfully registered application commands."))
     .catch(console.error);
 }
+
+export function handle_commands(client: Client) {
+  client.on("interactionCreate", async (interaction) => {
+    if (!interaction.isCommand()) return;
+
+    const { commandName } = interaction;
+
+    if (commandName === "ping") {
+      await interaction.reply("Pong!");
+    } else if (commandName === "server") {
+      await interaction.reply("Server info.");
+    } else if (commandName === "user") {
+      await interaction.reply("User info.");
+    }
+  });
+}
