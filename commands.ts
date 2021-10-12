@@ -25,7 +25,9 @@ export function build_commands(clientId: string, token: string) {
 }
 
 export function handle_commands(client: Client) {
+  console.log("Setting up command handling");
   client.on("interactionCreate", async (interaction) => {
+    console.log("Interact");
     if (!interaction.isCommand()) return;
 
     const { commandName } = interaction;
@@ -38,4 +40,5 @@ export function handle_commands(client: Client) {
       await interaction.reply("User info.");
     }
   });
+  console.log("Command handling set up");
 }

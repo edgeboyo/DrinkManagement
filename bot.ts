@@ -36,4 +36,6 @@ async function login_and_run(client: Client) {
   build_commands(clientId, token);
 
   handle_commands(client);
+
+  console.log("Bot fully functional!");
 }
