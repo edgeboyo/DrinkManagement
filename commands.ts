@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
-import { Client } from "discord.js";
+import { Client, GuildMemberRoleManager } from "discord.js";
 
-export function build_commands(clientId: string, token: string) {
+export async function build_commands(clientId: string, token: string) {
   const commands = [
     new SlashCommandBuilder()
       .setName("ping")
@@ -14,11 +14,14 @@ export function build_commands(clientId: string, token: string) {
     new SlashCommandBuilder()
       .setName("user")
       .setDescription("Replies with user info!"),
+    new SlashCommandBuilder()
+      .setName("checkperms")
+      .setDescription("Check my perms"),
   ].map((command) => command.toJSON());
 
   const rest = new REST({ version: "9" }).setToken(token);
 
-  rest
+  await rest
     .put(Routes.applicationCommands(clientId), { body: commands })
     .then(() => console.log("Successfully registered application commands."))
     .catch(console.error);
@@ -30,6 +33,8 @@ export function handle_commands(client: Client) {
     console.log("Interact");
     if (!interaction.isCommand()) return;
 
+    interaction.member?.permissions;
+
     const { commandName } = interaction;
 
     if (commandName === "ping") {
@@ -38,6 +43,25 @@ export function handle_commands(client: Client) {
       await interaction.reply("Server info.");
     } else if (commandName === "user") {
       await interaction.reply("User info.");
+    } else if (commandName == "checkperms") {
+      if (
+        interaction.member === null ||
+        interaction.member?.roles === undefined
+      ) {
+        await interaction.reply("Error!");
+        return;
+      }
+
+      console.log(interaction.memberPermissions?.toJSON());
+
+      if (
+        !interaction.memberPermissions?.has("MANAGE_GUILD") ||
+        !interaction.memberPermissions?.has("ADMINISTRATOR")
+      ) {
+        await interaction.reply("Yes, you can!");
+      } else {
+        await interaction.reply("No fuuuucking way!");
+      }
     }
   });
   console.log("Command handling set up");
